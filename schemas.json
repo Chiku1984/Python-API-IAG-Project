@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+
+    "hiera": {
+	"oracle_versions" : {
+	    "type": "array",
+	    "items": {
+		"type": "string",
+		"pattern" : "^[1-9][0-9].[0-9].[0-9].[0-9]-(x86|x86_64)"
+	    },
+	    "uniqueItems": true
+	},
+	"packages" : {
+	    "type": "array",
+	    "items": { "type": "string" },
+	    "uniqueItems": true
+	},
+	"filesystems": {
+	    "type": "object",
+	    "patternProperties": {
+		"^(/[^/]+)+$": { "$ref": "#/hiera/filesystem" }
+	    },
+	    "additionalProperties": false
+	},
+	"filesystem": {
+	    "type": "object",
+	    "additionalProperties": false,
+	    "properties": {
+		"type": { "enum": [ "filesystem" ] },
+		"lv_size": {
+		    "type": "string",
+		    "pattern": "^[0-9]+(.[0-9]+)*[mkgMKG]$"
+		},
+		"mountpoint": {
+		    "type": "string",
+		    "pattern": "^(/[^/]+)+$"
+		},
+		"mnt_options": {
+		    "type": "string"
+		},
+		"owner": {
+		    "type": "string"
+		},
+		"group": {
+		    "type": "string"
+		},
+		"lv_name": {
+		    "type": "string"
+		},
+		"vg_name": {
+		    "type": "string"
+		},
+		"fs_type": {
+		    "enum": [ "ext3", "ext4", "xfs" ]
+		},
+		"fs_freq": {
+		    "type": "integer"
+		},
+		"fs_pass": {
+		    "type": "integer"
+		},
+		"recurse": {
+		    "type": "boolean"
+		},
+		"force": {
+		    "type": "boolean"
+		},
+		"ensure": {
+		    "enum": [ "present", "absent" ]
+		}
+	    },
+	    "required": [ "lv_size" ]
+	}
+    }
+}

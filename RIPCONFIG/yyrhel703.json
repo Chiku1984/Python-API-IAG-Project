@@ -1,0 +1,10 @@
+{
+  "profile::base::storage::lvm_filesystems" : {
+    "/db_datafiles" : {
+      "lv_size" : "1g"
+    },
+    "/db_archive" : {
+      "lv_size" : "100m"
+    }
+  }
+}
